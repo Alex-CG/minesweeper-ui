@@ -19,13 +19,13 @@ export class GameService {
     return this.http.post(`${url}`, null);
   }
 
-  public flagSquare(row :number, col: number): Observable<any> {
-    const url = `${this.apiURL}${this.gamePath}/flag/${row}/${col}`;
+  public flagSquare(boardId: string, row :number, col: number): Observable<any> {
+    const url = `${this.apiURL}${this.gamePath}/${boardId}/flag/${row}/${col}`;
     return this.http.patch(`${url}`, null);
   }
 
-  public revealSquare(row :number, col: number): Observable<any> {
-    const url = `${this.apiURL}${this.gamePath}/reveal/${row}/${col}`;
+  public revealSquare(boardId: string, row :number, col: number): Observable<any> {
+    const url = `${this.apiURL}${this.gamePath}/${boardId}/reveal/${row}/${col}`;
     return this.http.patch(`${url}`, null);
   }
 
