@@ -9,7 +9,7 @@ import { GameService } from 'src/app/services/game.service';
 export class BoardComponent implements OnInit {
 
   show = true;
-  board = {
+  board: any = {
     id: "",
     matrix: [[]]
   };

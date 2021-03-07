@@ -1,11 +1,17 @@
 <div>
-    <div class="w-full my-4 h-16">
-        <button class="btn-sm btn-green w-24" (click)="newGame()">New Game</button>
+    <div class="w-full my-4 h-20 border-2 border-gray-300 bg-gray-100 flex items-center justify-center">
+        <div class="bg-gray-200 border-2 border-gray-300 h-16 w-16 cursor-pointer flex items-center justify-center"
+            (click)="newGame()">
+            <i class="text-4xl bg-yellow-200 text-black rounded-full"
+                [ngClass]="(board.happy) ? 'far fa-smile':'far fa-frown'">
+            </i>
+        </div>
     </div>
     <div class="w-full grid grid-cols-10" *ngIf="show">
         <div *ngFor="let row of board.matrix">
             <div *ngFor="let col of row">
-                <div class="border-2 border-gray-300 bg-gray-200 text-center cursor-pointer h-20 flex items-center justify-center"
+                <div class="border-2 border-gray-300 text-center cursor-pointer h-20 flex items-center justify-center"
+                    [ngClass]="(col.opened) ? 'bg-gray-200':'bg-gray-100'"
                     (click)="revealSquare(col)"
                     (contextmenu)="flagSquare($event, col)">
                     <div *ngIf="col.flag === 'FLAG'">
@@ -18,8 +24,14 @@
                         <div *ngIf="col.type === 'MINE'">
                             <i class="fas fa-bomb"></i>
                         </div>
-                        <div *ngIf="col.type === 'NUMBER'">
-                            <p class="text-base font-bold">{{col.value}}</p>
+                        <div *ngIf="col.type === 'NUMBER' && col.value !== 0">
+                            <p class="text-xl font-bold"
+                                [ngClass]="{'1':'text-blue-600',
+                                            '2':'text-green-600',
+                                            '3':'text-red-600',
+                                            '4':'text-blue-900'} [col.value]">
+                                {{col.value}}
+                            </p>
                         </div>
                     </div>
                 </div>
