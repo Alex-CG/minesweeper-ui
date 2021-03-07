@@ -15,7 +15,7 @@
                     (click)="revealSquare(col)"
                     (contextmenu)="flagSquare($event, col)">
                     <div *ngIf="col.flag === 'FLAG'">
-                        <i class="fas fa-flag"></i>
+                        <i class="fas fa-flag text-red-800"></i>
                     </div>
                     <div *ngIf="col.flag === 'QUESTION'">
                         <i class="fas fa-question"></i>
@@ -25,13 +25,13 @@
                             <i class="fas fa-bomb"></i>
                         </div>
                         <div *ngIf="col.type === 'NUMBER' && col.value !== 0">
-                            <p class="text-xl font-bold"
-                                [ngClass]="{'1':'text-blue-600',
-                                            '2':'text-green-600',
-                                            '3':'text-red-600',
-                                            '4':'text-blue-900'} [col.value]">
+                            <span class="text-xl font-bold"
+                                    [ngClass]="{'1':'text-blue-600',
+                                                '2':'text-green-600',
+                                                '3':'text-red-600',
+                                                '4':'text-blue-900'} [col.value]">
                                 {{col.value}}
-                            </p>
+                            </span>
                         </div>
                     </div>
                 </div>
