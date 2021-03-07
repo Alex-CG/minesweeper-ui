@@ -1,4 +1,6 @@
-# MinesweeperUi
+# Minesweeper UI
+
+Minesweeper UI will be the place to play this game!
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
 
