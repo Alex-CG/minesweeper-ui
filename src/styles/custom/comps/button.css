@@ -1,0 +1,39 @@
+.btn {
+    @apply py-2 px-4 rounded font-bold text-sm cursor-pointer;
+}
+
+.btn-sm {
+    @apply py-2 px-4 rounded font-medium text-xs cursor-pointer;
+}
+
+.btn-lg {
+    @apply py-3 px-4 rounded font-bold text-base cursor-pointer;
+}
+
+.btn-icon {
+    @apply p-0 rounded-lg w-8 h-8 text-sm flex items-center justify-center cursor-pointer;
+}
+
+.btn-blue {
+    @apply bg-blue-500 text-white;
+}
+
+.btn-blue:hover {
+    @apply bg-blue-700;
+}
+
+.btn-green {
+    @apply bg-green-500 text-white;
+}
+
+.btn-green:hover {
+    @apply bg-green-700;
+}
+
+.btn-red {
+    @apply bg-red-500 text-white;
+}
+
+.btn-red:hover {
+    @apply bg-red-700;
+}

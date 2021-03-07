@@ -1,0 +1,27 @@
+<div>
+    <div class="w-full my-4 h-16">
+        <button class="btn-sm btn-green w-24">New Game</button>
+    </div>
+    <div class="w-full grid grid-cols-10">
+        <div *ngFor="let row of board.matrix" class="">
+            <div *ngFor="let col of row">
+                <div class="border-2 border-gray-300 bg-gray-200 text-center cursor-pointer h-20 flex items-center justify-center">
+                    <div *ngIf="col.flag === 'FLAG'">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <div *ngIf="col.flag === 'QUESTION'">
+                        <i class="fas fa-question"></i>
+                    </div>
+                    <div *ngIf="col.flag === 'NONE' && true">
+                        <div *ngIf="col.type === 'MINE'">
+                            <i class="fas fa-bomb"></i>
+                        </div>
+                        <div *ngIf="col.type === 'NUMBER'">
+                            <p class="text-base font-bold">{{col.value}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
