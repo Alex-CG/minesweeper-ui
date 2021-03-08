@@ -27,7 +27,7 @@ export class BoardComponent implements OnInit {
   }
 
   revealSquare(square: any) {
-    if (square.openned || square.flag !== "NONE") return;
+    if (square.opened || square.flag !== "NONE") return;
 
     this.gameService.revealSquare(this.board.id, square.row, square.col).subscribe(resp => {
       if (resp) {
@@ -38,7 +38,7 @@ export class BoardComponent implements OnInit {
 
   flagSquare(event: any, square: any) {
     event.preventDefault();
-    if (square.openned) return;
+    if (square.opened) return;
 
     this.gameService.flagSquare(this.board.id, square.row, square.col).subscribe(resp => {
       if (resp) {

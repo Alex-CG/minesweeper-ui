@@ -2,20 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { environment } from 'src/environments/environment';
-
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
 
-  public readonly apiURL = environment.servers.apiURL;
-  public readonly gamePath = "/game"
+  public readonly apiURL = "/ms-api";
+  public readonly gamePath = "/games"
 
   constructor(private http: HttpClient) { }
 
   public newGame(): Observable<any> {
-    const url = `${this.apiURL}${this.gamePath}/new`;
+    const url = `${this.apiURL}${this.gamePath}`;
     return this.http.post(`${url}`, null);
   }
 
