@@ -1,0 +1,6 @@
+<div>
+    <app-game-list [savedGames]="savedGames"
+                   (resume)="resumeGame($event)"></app-game-list>
+    <app-board [resumedGameId]="resumedGameId"
+               (loadSavedGames)="loadSavedGames($event)"></app-board>
+</div>

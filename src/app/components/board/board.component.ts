@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -8,11 +8,18 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class BoardComponent implements OnInit {
 
+  @Input() resumedGameId: string;
+  @Output() loadSavedGames = new EventEmitter<any[]>();
+
   show = true;
-  board: any = {
+  saveMode: boolean;
+
+  game: any = {
     id: "",
-    matrix: [[]]
+    board: [[]]
   };
+  
+  gameNameToSave: string;
 
   constructor(private gameService: GameService) { }
 
@@ -22,36 +29,65 @@ export class BoardComponent implements OnInit {
 
   newGame() {
     this.gameService.newGame().subscribe(resp => {
-      this.updateBoard(resp);
+      this.loadGame(resp);
     });
   }
 
   revealSquare(square: any) {
-    if (square.opened || square.flag !== "NONE") return;
+    if (!this.game.happy || square.opened || square.flag !== "NONE") return;
 
-    this.gameService.revealSquare(this.board.id, square.row, square.col).subscribe(resp => {
+    this.gameService.revealSquare(this.game.id, square.row, square.col).subscribe(resp => {
       if (resp) {
-        this.updateBoard(resp);
+        this.loadGame(resp);
       }
     });
   }
 
   flagSquare(event: any, square: any) {
     event.preventDefault();
-    if (square.opened) return;
+    if (!this.game.happy || square.opened) return;
 
-    this.gameService.flagSquare(this.board.id, square.row, square.col).subscribe(resp => {
+    this.gameService.flagSquare(this.game.id, square.row, square.col).subscribe(resp => {
       if (resp) {
-        this.updateBoard(resp);
+        this.loadGame(resp);
       }
     });
   }
 
-  updateBoard(board: any) {
-    if (board) {
+  saveGame() {
+    alert(this.gameNameToSave);
+    if (!this.gameNameToSave) return;
+
+    this.gameService.saveGame(this.game.id, this.gameNameToSave).subscribe(resp => {
+      if (resp) {
+        this.loadSavedGames.emit(resp);
+        this.restartSaveMode();
+      }
+    });
+  }
+
+  loadGame(game: any) {
+    if (game) {
       this.show = false;
-      this.board = board;
+      this.game = game;
       this.show = true;
+    }
+  }
+
+  goToSaveMode() {
+    this.saveMode = !this.saveMode;
+  }
+
+  restartSaveMode() {
+    this.saveMode = false;
+    this.gameNameToSave = '';
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.resumedGameId && changes.resumedGameId.currentValue) {
+        this.gameService.getGame(changes.resumedGameId.currentValue).subscribe(resp => {
+          this.loadGame(resp);
+        });
     }
   }
 
