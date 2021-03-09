@@ -1,17 +1,42 @@
-<div>
-    <div class="w-full my-4 h-20 border-2 border-gray-300 bg-gray-100 flex items-center justify-center">
+<div class="px-60">
+    <div class="my-4 h-20 border-2 border-gray-300 bg-gray-100 flex items-center justify-between">
+        <div class="bg-gray-200 border-2 border-gray-300 h-16 w-16 ml-2 cursor-pointer flex items-center justify-center">
+            <span class="text-red-600 text-xl font-bold">00:00</span>
+        </div>
         <div class="bg-gray-200 border-2 border-gray-300 h-16 w-16 cursor-pointer flex items-center justify-center"
             (click)="newGame()">
             <i class="text-4xl bg-yellow-200 text-black rounded-full"
-                [ngClass]="(board.happy) ? 'far fa-smile':'far fa-frown'">
+                [ngClass]="(game.happy) ? 'far fa-smile':'far fa-frown'">
+            </i>
+        </div>
+        <div class="bg-gray-200 border-2 border-gray-300 h-16 w-16 mr-2 cursor-pointer flex items-center justify-center"
+            (click)="!saveMode ? goToSaveMode() : restartSaveMode()">
+            <i class="text-4xl text-green-400 fas"
+                [ngClass]="{'fa-times-circle': saveMode,
+                            'text-red-800': saveMode,
+                            'fa-save': !saveMode,
+                            'text-green-400': !saveMode }">
             </i>
         </div>
     </div>
-    <div class="w-full grid grid-cols-10" *ngIf="show">
-        <div *ngFor="let row of board.matrix">
+    <div *ngIf="saveMode" class="flex flex-start items-center h-12">
+        <div>
+            <span class="font-semibold text-blue-500">Please, type a name for the game:</span>
+        </div>
+        <div class="ml-2">
+            <input type="text" class="field" [(ngModel)]="gameNameToSave" #ctrl="ngModel">
+        </div>
+        <div class="ml-2">
+            <button (click)="saveGame()" class="btn btn-blue">
+                <i class="fas fa-check-circle"></i>
+            </button>
+        </div>
+    </div>
+    <div class="grid grid-cols-10 gap-0" *ngIf="show">
+        <div *ngFor="let row of game.board">
             <div *ngFor="let col of row">
-                <div class="border-2 border-gray-300 text-center cursor-pointer h-20 flex items-center justify-center"
-                    [ngClass]="(col.opened) ? 'bg-gray-200':'bg-gray-100'"
+                <div class="border-2 border-gray-300 text-center cursor-pointer h-12 flex items-center justify-center"
+                    [ngClass]="{'bg-gray-200': col.opened, 'bg-gray-100': !col.opened, 'bg-red-600': col.wrong}"
                     (click)="revealSquare(col)"
                     (contextmenu)="flagSquare($event, col)">
                     <div *ngIf="col.flag === 'FLAG'">

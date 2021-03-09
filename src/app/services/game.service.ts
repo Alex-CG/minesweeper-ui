@@ -17,6 +17,21 @@ export class GameService {
     return this.http.post(`${url}`, null);
   }
 
+  public saveGame(id: string, name: string): Observable<any> {
+    const url = `${this.apiURL}${this.gamePath}/${id}`;
+    return this.http.patch(`${url}`, {name});
+  }
+
+  public getGame(id: string): Observable<any> {
+    const url = `${this.apiURL}${this.gamePath}/${id}`;
+    return this.http.get(`${url}`);
+  }
+
+  public getAll(): Observable<any> {
+    const url = `${this.apiURL}${this.gamePath}`;
+    return this.http.get(`${url}`);
+  }
+
   public flagSquare(boardId: string, row :number, col: number): Observable<any> {
     const url = `${this.apiURL}${this.gamePath}/${boardId}/flag/${row}/${col}`;
     return this.http.patch(`${url}`, null);

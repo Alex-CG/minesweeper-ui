@@ -1,0 +1,22 @@
+<div>
+    <div class="flex">
+        <div >
+            <h2 class="text-blue-800 text-lg font-bold">Saved Games:</h2>
+        </div>
+        <div class="ml-2 cursor-pointer" (click)="show = !show">
+            <i class="fas text-blue-800"
+                [ngClass]="show ? 'fa-arrow-circle-up' : 'fa-arrow-circle-down'"></i>
+        </div>
+    </div>
+    <div *ngIf="show" class="ml-1">
+        <div *ngFor="let game of savedGames">
+            <div class="flex flex-row items-center">
+                <span class="text-md text-blue-500 mr-2">{{game.name}}</span>
+                <button class="btn-blue rounded-full w-5 h-5 flex items-center justify-center"
+                    (click)="resumeGame(game)">
+                    <i class="fas fa-play-circle rounded-full"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

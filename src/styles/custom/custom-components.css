@@ -1,1 +1,6 @@
 @import './comps/button.css';
+@import './comps/field.css';
+
+button:focus {
+    @apply outline-none ring !important;
+}
