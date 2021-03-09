@@ -10,8 +10,12 @@
             </i>
         </div>
         <div class="bg-gray-200 border-2 border-gray-300 h-16 w-16 mr-2 cursor-pointer flex items-center justify-center"
-            (click)="goToSaveMode()">
-            <i class="text-4xl text-green-400 fas fa-save">
+            (click)="!saveMode ? goToSaveMode() : restartSaveMode()">
+            <i class="text-4xl text-green-400 fas"
+                [ngClass]="{'fa-times-circle': saveMode,
+                            'text-red-800': saveMode,
+                            'fa-save': !saveMode,
+                            'text-green-400': !saveMode }">
             </i>
         </div>
     </div>

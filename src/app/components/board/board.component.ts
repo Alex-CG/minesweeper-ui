@@ -55,7 +55,6 @@ export class BoardComponent implements OnInit {
   }
 
   saveGame() {
-    alert(this.gameNameToSave);
     if (!this.gameNameToSave) return;
 
     this.gameService.saveGame(this.game.id, this.gameNameToSave).subscribe(resp => {
@@ -70,12 +69,17 @@ export class BoardComponent implements OnInit {
     if (game) {
       this.show = false;
       this.game = game;
+      if (!this.game.happy) {
+        this.restartSaveMode();
+      }
       this.show = true;
     }
   }
 
   goToSaveMode() {
-    this.saveMode = !this.saveMode;
+    if (this.game.happy) {
+      this.saveMode = !this.saveMode;
+    }
   }
 
   restartSaveMode() {
