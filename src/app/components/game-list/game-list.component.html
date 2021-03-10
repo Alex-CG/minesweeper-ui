@@ -1,21 +1,23 @@
-<div>
-    <div class="flex">
-        <div >
-            <h2 class="text-blue-800 text-lg font-bold">Saved Games:</h2>
+<div class="flex flex-col fixed-width">
+    <div class="flex flex-row items-center">
+        <div class="flex">
+            <h2 class="text-blue-800 text-base font-bold">Saved Games:</h2>
         </div>
-        <div class="ml-2 cursor-pointer" (click)="show = !show">
+        <div class="ml-2 mt-1 cursor-pointer flex items-center" (click)="show = !show">
             <i class="fas text-blue-800"
                 [ngClass]="show ? 'fa-arrow-circle-up' : 'fa-arrow-circle-down'"></i>
         </div>
     </div>
-    <div *ngIf="show" class="ml-1">
+    <div *ngIf="show" class="flex flex-wrap ml-2">
         <div *ngFor="let game of savedGames">
-            <div class="flex flex-row items-center">
-                <span class="text-md text-blue-500 mr-2">{{game.name}}</span>
-                <button class="btn-blue rounded-full w-5 h-5 flex items-center justify-center"
-                    (click)="resumeGame(game)">
-                    <i class="fas fa-play-circle rounded-full"></i>
-                </button>
+            <div class="flex">
+                <div class="border-2 border-blue-800 rounded-full p-2 m-1 flex flex-row items-center">
+                    <span class="text-sm text-blue-800 ellipsis-box mr-2" >{{game.name}}</span>
+                    <button class="rounded-full w-5 h-5 flex items-center justify-center"
+                        (click)="resumeGame(game)">
+                        <i class="fas fa-play-circle rounded-full text-blue-800"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

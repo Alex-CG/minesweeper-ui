@@ -1,6 +1,10 @@
-<div>
-    <app-game-list [savedGames]="savedGames"
-                   (resume)="resumeGame($event)"></app-game-list>
-    <app-board [resumedGameId]="resumedGameId"
-               (loadSavedGames)="loadSavedGames($event)"></app-board>
+<div class="flex flex-col">
+    <div class="flex justify-center">
+        <app-game-list [savedGames]="savedGames"
+        (resume)="resumeGame($event)"></app-game-list>
+    </div>
+    <div class="flex justify-center">
+        <app-board [resumedGameId]="resumedGameId"
+        (loadSavedGames)="loadSavedGames($event)"></app-board>
+    </div>
 </div>
