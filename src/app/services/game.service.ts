@@ -28,6 +28,11 @@ export class GameService {
     return this.http.get(`${url}`);
   }
 
+  public deleteGame(id: string): Observable<any> {
+    const url = `${this.apiURL}${this.gamePath}/${id}`;
+    return this.http.delete(`${url}`);
+  }
+
   public getAll(): Observable<any> {
     const url = `${this.apiURL}${this.gamePath}`;
     return this.http.get(`${url}`);

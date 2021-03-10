@@ -8,14 +8,20 @@
                 [ngClass]="show ? 'fa-arrow-circle-up' : 'fa-arrow-circle-down'"></i>
         </div>
     </div>
-    <div *ngIf="show" class="flex flex-wrap ml-2">
+    <div *ngIf="show" class="flex flex-wrap ml-2 mt-2">
         <div *ngFor="let game of savedGames">
             <div class="flex">
-                <div class="border-2 border-blue-800 rounded-full p-2 m-1 flex flex-row items-center">
-                    <span class="text-sm text-blue-800 ellipsis-box mr-2" >{{game.name}}</span>
+                <div class="border-2 border-gray-400 rounded-full p-2 m-1 flex flex-row items-center">
+                    <button type="button" class="text-sm text-black ellipsis-box mr-2" data-toggle="tooltip" data-placement="left" title="{{game.name}}" disabled>
+                        <span class="text-left">{{game.name}}</span>
+                    </button>
                     <button class="rounded-full w-5 h-5 flex items-center justify-center"
                         (click)="resumeGame(game)">
                         <i class="fas fa-play-circle rounded-full text-blue-800"></i>
+                    </button>
+                    <button class="rounded-full w-5 h-5 flex items-center justify-center"
+                        (click)="deleteGame(game)">
+                        <i class="fas fa-times-circle rounded-full text-red-800"></i>
                     </button>
                 </div>
             </div>

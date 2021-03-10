@@ -25,6 +25,15 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.newGame();
+    this.loadAll();
+  }
+
+  loadAll() {
+    this.gameService.getAll().subscribe(resp => {
+      if (resp) {
+        this.loadSavedGames.emit(resp);
+      }
+    });
   }
 
   newGame() {
@@ -61,6 +70,7 @@ export class BoardComponent implements OnInit {
       if (resp) {
         this.loadSavedGames.emit(resp);
         this.restartSaveMode();
+        this.newGame();
       }
     });
   }
