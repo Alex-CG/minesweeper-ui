@@ -9,6 +9,7 @@ export class GameListComponent implements OnInit {
 
   @Input() savedGames: any[] = [];
   @Output() resume = new EventEmitter<string>();
+  @Output() delete = new EventEmitter<string>();
 
   show = false;
 
@@ -19,6 +20,10 @@ export class GameListComponent implements OnInit {
 
   resumeGame(game: any) {
     this.resume.emit(game.id);
+  }
+
+  deleteGame(game: any) {
+    this.delete.emit(game.id);
   }
 
 }

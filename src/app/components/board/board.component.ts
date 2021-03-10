@@ -25,6 +25,15 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.newGame();
+    this.loadAll();
+  }
+
+  loadAll() {
+    this.gameService.getAll().subscribe(resp => {
+      if (resp) {
+        this.loadSavedGames.emit(resp);
+      }
+    });
   }
 
   newGame() {
@@ -34,7 +43,7 @@ export class BoardComponent implements OnInit {
   }
 
   revealSquare(square: any) {
-    if (!this.game.happy || square.opened || square.flag !== "NONE") return;
+    if (this.game.face !== "HAPPY" || square.opened || square.flag !== "NONE") return;
 
     this.gameService.revealSquare(this.game.id, square.row, square.col).subscribe(resp => {
       if (resp) {
@@ -45,7 +54,7 @@ export class BoardComponent implements OnInit {
 
   flagSquare(event: any, square: any) {
     event.preventDefault();
-    if (!this.game.happy || square.opened) return;
+    if (this.game.face !== "HAPPY" || square.opened) return;
 
     this.gameService.flagSquare(this.game.id, square.row, square.col).subscribe(resp => {
       if (resp) {
@@ -61,6 +70,7 @@ export class BoardComponent implements OnInit {
       if (resp) {
         this.loadSavedGames.emit(resp);
         this.restartSaveMode();
+        this.newGame();
       }
     });
   }
@@ -69,7 +79,7 @@ export class BoardComponent implements OnInit {
     if (game) {
       this.show = false;
       this.game = game;
-      if (!this.game.happy) {
+      if (this.game.face === "SAD") {
         this.restartSaveMode();
       }
       this.show = true;
@@ -77,7 +87,7 @@ export class BoardComponent implements OnInit {
   }
 
   goToSaveMode() {
-    if (this.game.happy) {
+    if (this.game.face === "HAPPY") {
       this.saveMode = !this.saveMode;
     }
   }

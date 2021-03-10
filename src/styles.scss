@@ -3,3 +3,9 @@
 @import 'tailwindcss/components';
 @import './styles/custom/custom-components.css';
 @import 'tailwindcss/utilities';
+
+.fixed-width {
+    width: 500px !important;
+    min-width: 500px !important;
+    max-width: 500px !important;
+}

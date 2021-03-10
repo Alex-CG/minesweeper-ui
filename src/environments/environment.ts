@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   servers: {
-    apiURL: 'http://localhost:8082/ms-api'
+    apiURL: 'http://localhost:5000'
   }
 };
 
