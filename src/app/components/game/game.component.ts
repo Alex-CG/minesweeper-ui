@@ -16,15 +16,15 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  resumeGame(gameId: string) {
+  resumeGame(gameId: string): void {
     this.resumedGameId = gameId;
   }
 
-  loadSavedGames(savedGames: any[]) {
+  loadSavedGames(savedGames: any[]): void {
     this.savedGames = savedGames;
   }
 
-  deleteGame(gameId: string) {
+  deleteGame(gameId: string): void {
     this.gameService.deleteGame(gameId).subscribe(resp => {
       if (resp) {
         this.loadSavedGames(resp);

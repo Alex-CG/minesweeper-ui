@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { GameService } from 'src/app/services/game.service';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnChanges {
 
   @Input() resumedGameId: string;
   @Output() loadSavedGames = new EventEmitter<any[]>();
@@ -15,10 +15,10 @@ export class BoardComponent implements OnInit {
   saveMode: boolean;
 
   game: any = {
-    id: "",
+    id: '',
     board: [[]]
   };
-  
+
   gameNameToSave: string;
 
   constructor(private gameService: GameService) { }
@@ -28,7 +28,7 @@ export class BoardComponent implements OnInit {
     this.loadAll();
   }
 
-  loadAll() {
+  loadAll(): void {
     this.gameService.getAll().subscribe(resp => {
       if (resp) {
         this.loadSavedGames.emit(resp);
@@ -36,14 +36,14 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  newGame() {
+  newGame(): void {
     this.gameService.newGame().subscribe(resp => {
       this.loadGame(resp);
     });
   }
 
-  revealSquare(square: any) {
-    if (this.game.face !== "HAPPY" || square.opened || square.flag !== "NONE") return;
+  revealSquare(square: any): void {
+    if (this.game.face !== 'HAPPY' || square.opened || square.flag !== 'NONE') { return; }
 
     this.gameService.revealSquare(this.game.id, square.row, square.col).subscribe(resp => {
       if (resp) {
@@ -52,9 +52,9 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  flagSquare(event: any, square: any) {
+  flagSquare(event: any, square: any): void {
     event.preventDefault();
-    if (this.game.face !== "HAPPY" || square.opened) return;
+    if (this.game.face !== 'HAPPY' || square.opened) { return; }
 
     this.gameService.flagSquare(this.game.id, square.row, square.col).subscribe(resp => {
       if (resp) {
@@ -63,8 +63,8 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  saveGame() {
-    if (!this.gameNameToSave) return;
+  saveGame(): void {
+    if (!this.gameNameToSave) { return; }
 
     this.gameService.saveGame(this.game.id, this.gameNameToSave).subscribe(resp => {
       if (resp) {
@@ -75,29 +75,29 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  loadGame(game: any) {
+  loadGame(game: any): void {
     if (game) {
       this.show = false;
       this.game = game;
-      if (this.game.face === "SAD") {
+      if (this.game.face === 'SAD') {
         this.restartSaveMode();
       }
       this.show = true;
     }
   }
 
-  goToSaveMode() {
-    if (this.game.face === "HAPPY") {
+  goToSaveMode(): void {
+    if (this.game.face === 'HAPPY') {
       this.saveMode = !this.saveMode;
     }
   }
 
-  restartSaveMode() {
+  restartSaveMode(): void {
     this.saveMode = false;
     this.gameNameToSave = '';
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.resumedGameId && changes.resumedGameId.currentValue) {
         this.gameService.getGame(changes.resumedGameId.currentValue).subscribe(resp => {
           this.loadGame(resp);

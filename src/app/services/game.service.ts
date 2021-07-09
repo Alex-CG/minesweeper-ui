@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class GameService {
 
   public readonly apiURL = `${environment.servers.apiURL}/ms-api`;
-  public readonly gamePath = "/games"
+  public readonly gamePath = '/games';
 
   constructor(private http: HttpClient) { }
 
@@ -38,12 +38,12 @@ export class GameService {
     return this.http.get(`${url}`);
   }
 
-  public flagSquare(boardId: string, row :number, col: number): Observable<any> {
+  public flagSquare(boardId: string, row: number, col: number): Observable<any> {
     const url = `${this.apiURL}${this.gamePath}/${boardId}/flag/${row}/${col}`;
     return this.http.patch(`${url}`, null);
   }
 
-  public revealSquare(boardId: string, row :number, col: number): Observable<any> {
+  public revealSquare(boardId: string, row: number, col: number): Observable<any> {
     const url = `${this.apiURL}${this.gamePath}/${boardId}/reveal/${row}/${col}`;
     return this.http.patch(`${url}`, null);
   }
